@@ -7,13 +7,15 @@ ifeq ($(UNAME), Darwin)
 endif
 endif
 
+PKGS=oUnit,extlib,unix
+BUILD=ocamlbuild -r -use-ocamlfind
 
 main: main.ml compile.ml runner.ml parser.mly lexer.mll
-	ocamlbuild -r -use-ocamlfind -package oUnit,extlib,unix  main.native
+	$(BUILD) -package $(PKGS) main.native
 	mv main.native main
 
 test: compile.ml runner.ml test.ml
-	ocamlbuild -r -use-ocamlfind -package oUnit,extlib,unix  test.native
+	$(BUILD) -package $(PKGS) test.native
 	mv test.native test
 
 output/%.run: output/%.o main.c

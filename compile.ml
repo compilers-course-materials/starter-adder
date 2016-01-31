@@ -1,5 +1,7 @@
 open Printf
 
+(* Abstract syntax of (a small subset of) x86 assembly instructions *)
+
 type reg =
 	| EAX
 	| ESP
@@ -14,6 +16,9 @@ type instruction =
   | IAdd of arg * arg
 	| IRet
 
+
+(* Abstract syntax of the Adder language *)
+
 type prim1 =
   | Add1
   | Sub1
@@ -23,6 +28,9 @@ type program =
   | Prim1 of prim1 * program
   | Let of string * program * program
   | Id of string
+
+
+(* Functions that implement the compiler *)
 
 let reg_to_asm_string (r : reg) : string =
 	match r with
@@ -74,7 +82,10 @@ let rec compile_env
 let compile (p : program) : instruction list =
   compile_env p 1 []
 
-let compile_to_string prog =
+(* The entry point for the compiler: a function that takes a program and
+creates an assembly-program string representing the compiled version *)
+
+let compile_to_string (prog : program) =
   let prelude = 
 "section .text
 global our_code_starts_here

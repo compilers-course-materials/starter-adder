@@ -28,5 +28,5 @@ output/%.s: input/%.adder main
 	./main.native $< > $@
 
 clean:
-	rm -rf output/*
-	rm -f _build/* main.native test.native 
+	rm -rf output/*.o output/*.s output/*.dSYM output/*.run
+	ocamlbuild -clean

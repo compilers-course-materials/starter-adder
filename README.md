@@ -172,10 +172,10 @@ te : string -> string -> string -> OUnit.test
 The first string given to `te` is a test name, followed by a program in
 concrete syntax to compile and evaluate, followed by a string that is a
 _substring of the expected error message_.  For example, in the starter code
-there is a test that fails with the substring `"not yet"`, because `Let` is
-not yet implemented.  You _should_ use this helper to explicitly test for the
-two error cases mentioned above, by raising a distinct string with `failwith`
-in the compiler.
+there is a test that fails with the substring `"not yet"`, because the `Let`
+case fails with an exception that mentions it is `"not yet implemented"`.  You
+_should_ use this helper to explicitly test for the two error cases mentioned
+above, by raising a distinct string with `failwith` in the compiler.
 
 Both of these functions store the assembly file your compiler generated in the
 `output/` directory, with the name of the test suffixed by `.s`, if it was

@@ -48,9 +48,10 @@ Here, a `let` expression can have one _or more_ bindings.
 ### Abstract Syntax
 
 
-The concrete syntax of Adder is an OCaml datatype:
+The abstract syntax of Adder is an OCaml datatype, and corresponds nearly
+one-to-one with the concrete syntax.
 
-@verbatim{
+```
 type prim1 =
   | Add1
   | Sub1
@@ -60,7 +61,7 @@ type expr =
   | Prim1 of prim1 * expr
   | Let of (string * expr) list * expr
   | Id of string
-}
+```
 
 
 ### Semantics
@@ -88,7 +89,7 @@ Here are some examples of Adder programs:
 | sub1(add1(sub1(5))) | `Prim1(Sub1, Prim1(Add1, Prim1(Sub1, Number(5))))` | 4 |
 | let x = 5, y = sub1(x) in sub1(y) | Let([("x", Number(5)), ("y", Prim1(Sub1(Id("x"))))], Prim1(Sub1("y"))) |
 
-@section{Implementing a Compiler for Adder}
+## Implementing a Compiler for Adder}
 
 You've been given a starter codebase that has several pieces of
 infrastructure:
@@ -115,7 +116,7 @@ OCaml, which is quite useful for testing.}
 All of your edits—which will be to write the compiler for Adder, and test
 it—will happen in @tt{test.ml} and @tt{compile.ml}.
 
-@subsection{Writing the Compiler}
+### Writing the Compiler
 
 The primary task of writing the Adder compiler is simple to state: take an
 instance of the @tt{program} datatype and turn it into a list of assembly
@@ -124,17 +125,17 @@ broken up over a few functions.
 
 The first is
 
-@verbatim{
+```
 compile : program -> instruction list
-}
+```
 
 which takes a @tt{program} value (abstract syntax) and turns it into a list of
 assembly instructions, represented by the @tt{instruction} type.  Then you
 need to implement
 
-@verbatim{
+```
 to_asm_string : instruction list -> string
-}
+```
 
 which renders the instruction datatype into a string representation of the
 instructions.  This second step is straightforward, but forces you to

@@ -156,13 +156,13 @@ The test file has two helper functions that will be useful to you:
 t : string -> string -> string -> OUnit.test
 ```
 
-The first string given to `t` is a test name, followed by a program, in
-concrete syntax to compile and evaluate, followed by a string for the expected
-output of the program (this will just be an integer in quotes).  This helper
-compiles, links, and runs the given program, and if the compiler ends in
-error, it will report the error message as a string.  This includes problems
-building at the assembler/linker level, as well as any explicit `failwith`
-statements in the compiler itself.
+The first string given to `t` is a test name, followed by an adder program (in
+concrete syntax) to compile and evaluate, followed by a string for the
+expected output of the program (this will just be an integer in quotes).  This
+helper compiles, links, and runs the given program, and if the compiler ends
+in error, it will report the error message as a string.  This includes
+problems building at the assembler/linker level, as well as any explicit
+`failwith` statements in the compiler itself.
 
 
 ```

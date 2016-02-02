@@ -95,18 +95,20 @@ You've been given a starter codebase that has several pieces of
 infrastructure:
 
 - A parser for Adder (`parser.mly` and `lexer.mll`), which takes concrete
-  syntax (text files) and turns it into instances of the `expr` datatype.
+  syntax (text files) and turns it into instances of the `expr` datatype.  You
+  don't need to edit this.
 
 - A main program (`main.ml`) that uses the parser and compiler to produce
-  assembly code from an input Adder text file.
+  assembly code from an input Adder text file.  You don't need to edit this.
 
 - A `Makefile` that builds `main.ml`, builds a tester for Adder that you will
   modify (`test.ml`), and manipulates assembly programs created by the Adder
-  compiler.
+  compiler.  You don't need to edit the `Makefile`, but you will edit
+  `test.ml`.
 
 - An OCaml program (`runner.ml`) that works in concert with the `Makefile` to
   allow you to compile and run an Adder program from within OCaml, which is
-  quite useful for testing.
+  quite useful for testing.  You don't need to edit `runner.ml`.
 
 All of your edits—which will be to write the compiler for Adder, and test
 it—will happen in `test.ml` and `compile.ml`.

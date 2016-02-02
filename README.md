@@ -130,8 +130,8 @@ which takes a `expr` value (abstract syntax) and turns it into a list of
 assembly instructions, represented by the `instruction` type.  Use only the
 provided instruction types for this assignment; we will be gradually expanding
 this as the semester progresses.  This function has an associated helper that
-takes some extra arguments, which will be discussed more in lecture on
-February 4.
+takes some extra arguments to track the variable environment and stack
+offset.  These will be discussed in more detail in lecture.
 
 The other component you need to implement is:
 
@@ -140,10 +140,11 @@ to_asm_string : instruction list -> string
 ```
 
 which renders individual instances of the instruction datatype into a string
-representation of the instruction.  This second step is straightforward, but
-forces you to understand the syntax of the assembly code you are generating.
-Most of the compiler concepts happen in the first step, that of generating
-assembly instructions from abstract syntax.  Do use [this assembly
+representation of the instruction (this is done for you for `mov` and `ret`).
+This second step is straightforward, but forces you to understand the syntax
+of the assembly code you are generating.  Most of the compiler concepts happen
+in the first step, that of generating assembly instructions from abstract
+syntax.  Do use [this assembly
 guide](http://www.cs.virginia.edu/~evans/cs216/guides/x86.html) if you have
 questions about the concrete syntax (or ask) of an instruction.
 
@@ -180,7 +181,30 @@ Both of these functions store the assembly file your compiler generated in the
 `output/` directory, with the name of the test suffixed by `.s`, if it was
 possible to generate.  So, for example, the starter tests generate a file
 called `forty_one.s` in the `output/` directory, containing the compiled code
-for that case.
+for that case.  This can be useful for debugging.  If you hand-edit a
+generated assembly file (to tweak it for an attempted fix), you can then run:
+
+```
+make output/forty_one.run
+```
+
+to trigger the build from that assembly file.  This can be helpful if you
+think you're generating mostly-correct code, but just want to try a small edit
+to fix something up.
+
+For files that built completely, the generated `*.run` executable is also
+stored in `output/`.
+
+### Running main
+
+The `main` program built with `make main` takes a single file as its
+command-line argument, and outputs the compiled assembly string on standard
+out.  If you want to write files containing Adder code, you can write files in
+the `input/` directory with the suffix `.adder`, and then run `make
+output/yourfile.run`, which will trigger the same process that happens in
+`test.ml` – the compiler will run on your adder file, and it will attempt to
+link it with `main.c` to create an executable.  The intermediate files will be
+stored in `output/yourfile.s`, `output/yourfile.o`, and `output/yourfile.run`.
 
 
 ### Handin

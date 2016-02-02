@@ -22,6 +22,7 @@ rule token = parse
   | "=" { EQUAL }
   | "(" { LPAREN }
   | ")" { RPAREN }
+  | "," { COMMA }
   | ident as x { ID x }
   | eof { EOF }
   | _ as c { failwith (sprintf "Unrecognized character: %c" c) }

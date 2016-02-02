@@ -26,7 +26,7 @@ type prim1 =
 type program =
 	| Number of int
   | Prim1 of prim1 * program
-  | Let of string * program * program
+  | Let of (string * program) list * program
   | Id of string
 
 
@@ -72,7 +72,7 @@ let rec compile_env
 			[
 				IMov(Reg(EAX), Const(n))
 			]
-    | Let(id, e, body) ->
+    | Let(binds, body) ->
       failwith "let not yet implemented"
     | Id(x) ->
       failwith "id not yet implemented"

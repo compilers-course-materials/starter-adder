@@ -23,10 +23,10 @@ type prim1 =
   | Add1
   | Sub1
 
-type program =
+type expr =
 	| Number of int
-  | Prim1 of prim1 * program
-  | Let of (string * program) list * program
+  | Prim1 of prim1 * expr
+  | Let of (string * expr) list * expr
   | Id of string
 
 
@@ -63,7 +63,7 @@ let rec find (ls : (string * int) list) (x : string) =
       if y = x then Some(v) else find rest x
 
 let rec compile_env
-    (p : program)
+    (p : expr)
     (stack_index : int)
     (env : (string * int) list)
   : instruction list =
@@ -79,13 +79,13 @@ let rec compile_env
     | Prim1(op, e) ->
       failwith "prim1 not yet implemented"
 
-let compile (p : program) : instruction list =
+let compile (p : expr) : instruction list =
   compile_env p 1 []
 
-(* The entry point for the compiler: a function that takes a program and
+(* The entry point for the compiler: a function that takes a expr and
 creates an assembly-program string representing the compiled version *)
 
-let compile_to_string (prog : program) =
+let compile_to_string (prog : expr) =
   let prelude = 
 "section .text
 global our_code_starts_here

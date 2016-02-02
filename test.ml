@@ -10,6 +10,8 @@ let suite =
 "suite">:::
  [t "forty_one" "41" "41";
 
+  te "nyi" "let x = 10 in x" "not yet";
+
   ]
 ;;
 

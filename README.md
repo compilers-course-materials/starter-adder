@@ -89,60 +89,90 @@ Here are some examples of Adder programs:
 | sub1(add1(sub1(5))) | `Prim1(Sub1, Prim1(Add1, Prim1(Sub1, Number(5))))` | 4 |
 | let x = 5, y = sub1(x) in sub1(y) | `Let([("x", Number(5)), ("y", Prim1(Sub1(Id("x"))))], Prim1(Sub1("y")))` | 3 |
 
-## Implementing a Compiler for Adder}
+## Implementing a Compiler for Adder
 
 You've been given a starter codebase that has several pieces of
 infrastructure:
 
-@itemlist[
+- A parser for Adder (`parser.mly` and `lexer.mll`), which takes concrete
+  syntax (text files) and turns it into instances of the `expr` datatype.
 
-@item{A parser for Adder (@tt{parser.mly} and @tt{lexer.mll}), which takes
-concrete syntax (text files) and turns it into instances of the @tt{program}
-datatype.}
+- A main program (`main.ml`) that uses the parser and compiler to produce
+  assembly code from an input Adder text file.
 
-@item{A main program (@tt{main.ml}) that uses the parser and compiler to produce
-assembly code from an input Adder text file.}
+- A `Makefile` that builds `main.ml`, builds a tester for Adder that you will
+  modify (`test.ml`), and manipulates assembly programs created by the Adder
+  compiler.
 
-@item{A @tt{Makefile} that builds @tt{main.ml}, builds a tester for Adder that
-you will modify (@tt{test.ml}), and manipulates assembly programs created by
-the Adder compiler.}
-
-@item{An OCaml program (@tt{runner.ml}) that works in concert with the
-@tt{Makefile} to allow you to compile and run an Adder program from within
-OCaml, which is quite useful for testing.}
-
-]
+- An OCaml program (`runner.ml`) that works in concert with the `Makefile` to
+  allow you to compile and run an Adder program from within OCaml, which is
+  quite useful for testing.
 
 All of your edits—which will be to write the compiler for Adder, and test
-it—will happen in @tt{test.ml} and @tt{compile.ml}.
+it—will happen in `test.ml` and `compile.ml`.
 
 ### Writing the Compiler
 
 The primary task of writing the Adder compiler is simple to state: take an
-instance of the @tt{program} datatype and turn it into a list of assembly
+instance of the `expr` datatype and turn it into a list of assembly
 instructions.  The provided compiler skeleton is set up to do just this,
 broken up over a few functions.
 
 The first is
 
 ```
-compile : program -> instruction list
+compile : expr -> instruction list
 ```
 
-which takes a @tt{program} value (abstract syntax) and turns it into a list of
-assembly instructions, represented by the @tt{instruction} type.  Then you
-need to implement
+which takes a `expr` value (abstract syntax) and turns it into a list of
+assembly instructions, represented by the `instruction` type.  Use only the
+provided instruction types for this assignment; we will be gradually expanding
+this as the semester progresses.
+
+The other component you need to implement is:
 
 ```
 to_asm_string : instruction list -> string
 ```
 
-which renders the instruction datatype into a string representation of the
-instructions.  This second step is straightforward, but forces you to
-understand the syntax of the assembly code you are generating.  Most of the
-compiler concepts happen in the first step, that of generating assembly
-instructions from abstract syntax.
+which renders individual instances of the instruction datatype into a string
+representation of the instruction.  This second step is straightforward, but
+forces you to understand the syntax of the assembly code you are generating.
+Most of the compiler concepts happen in the first step, that of generating
+assembly instructions from abstract syntax.  Do use [this assembly
+guide](http://www.cs.virginia.edu/~evans/cs216/guides/x86.html) if you have
+questions about the concrete syntax (or ask) of an instruction.
+
+### Testing the Compiler
+
+The test file has two helper functions that will be useful to you:
+
+```
+t : string -> string -> string -> OUnit.test
+```
+
+The first string given to `t` is a test name, followed by a program, in
+concrete syntax to compile and evaluate, followed by a string for the expected
+output of the program (this will just be an integer in quotes).  This helper
+compiles, links, and runs the given program, and if the compiler ends in
+error, it will report the error message as a string.  This includes problems
+building at the assembler/linker level, as well as any explicit `failwith`
+statements in the compiler itself.
 
 
+```
+te : string -> string -> string -> OUnit.test
+```
+
+The first string given to `te` is a test name, followed by a program in
+concrete syntax to compile and evaluate, followed by a string that is a
+_substring of the expected error message_.  For example, in the starter code
+there is a test that fails with the substring `"not yet"`, because `Let` is
+not yet implemented.  You _should_ use this helper to explicitly test for the
+two error cases mentioned above, by raising a distinct string with `failwith`
+in the compiler.
 
 
+### Handin
+
+This is due by Monday, February 8 at 11:59pm.

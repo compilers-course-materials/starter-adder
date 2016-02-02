@@ -7,7 +7,7 @@ open Compile
 %token <string> ID
 %token ADD1 SUB1 LPAREN RPAREN LET IN EQUAL COMMA EOF
 
-%type <Compile.program> program
+%type <Compile.expr> program
 
 %start program
 

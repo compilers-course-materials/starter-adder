@@ -84,7 +84,7 @@ The compiler should signal an error if:
 Here are some examples of Adder programs:
 
 | Concrete Syntax | Abstract Syntax | Answer |
-----------------------------------------------
+------------------|-----------------|---------
 | 5               | `Number(5)`     | 5      |
 | sub1(add1(sub1(5))) | `Prim1(Sub1, Prim1(Add1, Prim1(Sub1, Number(5))))` | 4 |
 | let x = 5, y = sub1(x) in sub1(y) | Let([("x", Number(5)), ("y", Prim1(Sub1(Id("x"))))], Prim1(Sub1("y"))) |

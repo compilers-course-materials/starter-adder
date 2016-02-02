@@ -129,7 +129,9 @@ compile : expr -> instruction list
 which takes a `expr` value (abstract syntax) and turns it into a list of
 assembly instructions, represented by the `instruction` type.  Use only the
 provided instruction types for this assignment; we will be gradually expanding
-this as the semester progresses.
+this as the semester progresses.  This function has an associated helper that
+takes some extra arguments, which will be discussed more in lecture on
+February 4.
 
 The other component you need to implement is:
 
@@ -174,7 +176,14 @@ not yet implemented.  You _should_ use this helper to explicitly test for the
 two error cases mentioned above, by raising a distinct string with `failwith`
 in the compiler.
 
+Both of these functions store the assembly file your compiler generated in the
+`output/` directory, with the name of the test suffixed by `.s`, if it was
+possible to generate.  So, for example, the starter tests generate a file
+called `forty_one.s` in the `output/` directory, containing the compiled code
+for that case.
+
 
 ### Handin
 
 This is due by Monday, February 8 at 11:59pm.
+

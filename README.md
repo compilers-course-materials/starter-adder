@@ -156,11 +156,11 @@ The test file has two helper functions that will be useful to you:
 t : string -> string -> string -> OUnit.test
 ```
 
-The first string given to `t` is a test name, followed by an adder program (in
-concrete syntax) to compile and evaluate, followed by a string for the
-expected output of the program (this will just be an integer in quotes).  This
-helper compiles, links, and runs the given program, and if the compiler ends
-in error, it will report the error message as a string.  This includes
+The first string given to `t` (test) is a test name, followed by an adder
+program (in concrete syntax) to compile and evaluate, followed by a string for
+the expected output of the program (this will just be an integer in quotes).
+This helper compiles, links, and runs the given program, and if the compiler
+ends in error, it will report the error message as a string.  This includes
 problems building at the assembler/linker level, as well as any explicit
 `failwith` statements in the compiler itself.
 
@@ -169,13 +169,14 @@ problems building at the assembler/linker level, as well as any explicit
 te : string -> string -> string -> OUnit.test
 ```
 
-The first string given to `te` is a test name, followed by a program in
-concrete syntax to compile and evaluate, followed by a string that is a
-_substring of the expected error message_.  For example, in the starter code
-there is a test that fails with the substring `"not yet"`, because the `Let`
-case fails with an exception that mentions it is `"not yet implemented"`.  You
-_should_ use this helper to explicitly test for the two error cases mentioned
-above, by raising a distinct string with `failwith` in the compiler.
+The first string given to `te` (test-error) is a test name, followed by a
+program in concrete syntax to compile and evaluate, followed by a string that
+is a _substring of the expected error message_.  For example, in the starter
+code there is a test that fails with the substring `"not yet"`, because the
+`Let` case fails with an exception that mentions it is `"not yet
+implemented"`.  You _should_ use this helper to explicitly test for the two
+error cases mentioned above, by raising a distinct string with `failwith` in
+the compiler.
 
 Both of these functions store the assembly file your compiler generated in the
 `output/` directory, with the name of the test suffixed by `.s`, if it was

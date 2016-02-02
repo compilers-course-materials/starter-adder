@@ -5,7 +5,7 @@
 In this assignment you'll implement a compiler for a small language called
 Adder (because it primarily adds things).
 
-@section{The Adder Language}
+## The Adder Language
 
 In each of the next several assignments, we'll introduce a language that we'll
 implement.  We'll start small, and build up features incrementally.  We're
@@ -24,7 +24,7 @@ There are a few pieces that go into defining a language for us to compile.
 
 ]
 
-@subsection{Concrete Syntax}
+### Concrete Syntax
 
 The concrete syntax of Adder is:
 
@@ -45,7 +45,7 @@ The concrete syntax of Adder is:
 Here, a `let` expression can have one _or more_ bindings.
 
 
-@subsection{Abstract Syntax}
+### Abstract Syntax
 
 
 The concrete syntax of Adder is an OCaml datatype:
@@ -63,6 +63,8 @@ type expr =
 }
 
 
+### Semantics
+
 An Adder program always evaluates to a single integer.  `Number`s evaluate to
 themselves (so a program just consisting of `Number(5)` should evaluate to the
 integer `5`).  Primitive expressions perform addition or subtraction by one on
@@ -77,7 +79,6 @@ The compiler should signal an error if:
 - There is a binding list containing two or more bindings with the same name
 - An identifier is unbound (there is no surrounding let binding for it)
 
-@subsection{Semantics}
 
 Here are some examples of Adder programs:
 

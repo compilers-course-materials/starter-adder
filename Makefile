@@ -25,7 +25,7 @@ output/%.o: output/%.s
 	nasm -f $(FORMAT) -o $@ $<
 
 output/%.s: input/%.adder main
-	./main.native $< > $@
+	./main $< > $@
 
 clean:
 	rm -rf output/*.o output/*.s output/*.dSYM output/*.run *.log

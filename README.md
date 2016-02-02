@@ -191,7 +191,10 @@ make output/forty_one.run
 
 to trigger the build from that assembly file.  This can be helpful if you
 think you're generating mostly-correct code, but just want to try a small edit
-to fix something up.
+to fix something up.  It's also helpful if you want to hand-write a small
+assembly example: you can create `.s` files from scratch in the `output`
+directory to experiment with, if you want to practice with assembly
+instructions without the compiler in the way.
 
 For files that built completely, the generated `*.run` executable is also
 stored in `output/`.
@@ -207,6 +210,11 @@ output/yourfile.run`, which will trigger the same process that happens in
 link it with `main.c` to create an executable.  The intermediate files will be
 stored in `output/yourfile.s`, `output/yourfile.o`, and `output/yourfile.run`.
 
+You can run the file by executing:
+
+```
+$ ./output/yourfile.run
+```
 
 ### Handin
 

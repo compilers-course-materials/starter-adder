@@ -22,7 +22,6 @@ There are a few pieces that go into defining a language for us to compile.
 - The _semantics_—or description of the behavior—of the abstrac
   syntax, so our compiler knows what the code it generates should do.
 
-]
 
 ### Concrete Syntax
 
@@ -70,10 +69,10 @@ An Adder program always evaluates to a single integer.  `Number`s evaluate to
 themselves (so a program just consisting of `Number(5)` should evaluate to the
 integer `5`).  Primitive expressions perform addition or subtraction by one on
 their argument.  Let bindings should evaluate all the binding expressions to
-values one by one, and after each, map from the given name to the
-corresponding value in both the rest of the bindings, and in the body of the
-let expression.  Identifiers evaluate to whatever their current mapped value
-is.  There are several examples further down.
+values one by one, and after each, store a mapping from the given name to the
+corresponding value in both (a) the rest of the bindings, and (b) the body of
+the let expression.  Identifiers evaluate to whatever their current stored
+value is.  There are several examples further down to make this concrete.
 
 The compiler should signal an error if:
 
@@ -87,6 +86,7 @@ Here are some examples of Adder programs:
 ------------------|-----------------|---------
 | 5               | `Number(5)`     | 5      |
 | sub1(add1(sub1(5))) | `Prim1(Sub1, Prim1(Add1, Prim1(Sub1, Number(5))))` | 4 |
+| let x = 5 in add1(x) | `Let([("x", Number(5))], Prim1(Add1, Id("x")))` | 6 |
 | let x = 5, y = sub1(x) in sub1(y) | `Let([("x", Number(5)), ("y", Prim1(Sub1(Id("x"))))], Prim1(Sub1("y")))` | 3 |
 
 ## Implementing a Compiler for Adder

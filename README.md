@@ -5,6 +5,24 @@
 In this assignment you'll implement a compiler for a small language called
 Adder (because it primarily adds things).
 
+## Errata
+
+- Test names cannot have spaces; this is due to the way the `Makefile` relies
+  on test names being used for filenames.
+- Note that in lecture, we used a `(string, int) avlnode` as the environment
+  type, here we use a `(string * int) list`.  This is a simpler data structure
+  that's often called an association list.  There is a provided `find`
+  function that looks up a value (an `int`) by key (a `string`).  Adding to an
+  association list is trivial – simply add onto the front with `::`.  You are
+  responsible for understanding how ordering in the case of duplicate keys may
+  interact with scope.
+- The starter code had some annoying tab/space discrepancies.  Feel free to
+  change to tabs or spaces consistently; neither the generated assembly nor
+  the OCaml compiler relies on tab characters to work correctly.
+- We used parentheses in some examples, like in `let x = (let y = 10 in y) in
+  x`.  Parentheses are not part of the concrete syntax of Adder, so if you
+  want to use this in a test, you must drop the parentheses.
+
 ## The Adder Language
 
 In each of the next several assignments, we'll introduce a language that we'll
